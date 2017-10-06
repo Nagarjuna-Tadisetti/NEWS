@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        function newApi() {
+  $(document).ready(function() {
+    $.ajax({
+        url: "http://139.59.86.166:8080/news"
+    }).then(function(data) {
+        var a = JSON.parse(data);
+        //console.log(a);
+        var template = `<div class="card">
+                        <img  class="img" style="width:100%;height: 300px;">
+                        <div class="container">
+                        <h4 class="title"></h4> 
+                        <p class="summary"></p> 
+                        <p class="source"></p>
+                        </div>
+                        </div><br>`;
+        for (var i=0;i<a.length;i++){
+            //console.log(a[i].title);
+            console.log($('#list'));
+            $('#list').append(template);
+            $('#list').find('.img').eq(i).attr('src',a[i].image_url);
+            $('#list').find('.title').eq(i).html(a[i].title);
+            $('#list').find('.summary').eq(i).html(a[i].summary);
+            $('#list').find('.source').eq(i).html(a[i].source);
+            
+        }
+        console.log("done");
+    });
+  });
+  }
+    </script>
+
+<style>
+.card {
+    box-shadow: 0 3px 5px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 40%;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.container {
+    padding: 2px 16px;
+}
+</style>
+</head>
+<body onload="newApi()">
+
+<div id="list">
+
+</div>
+
+</body>
+</html> 
